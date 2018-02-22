@@ -135,3 +135,7 @@ class DualNetwork(object):
             vars_train = tf.get_collection("vars_train")
             saver = tf.train.Saver(vars_train, write_version=1)
             saver.save(sess_, ckpt_path)
+
+    def save_graph(self, pb_path="graph.pb"):
+        tf.train.write_graph(tf.get_default_graph(), './pre_train',
+                 pb_path, as_text=True)
