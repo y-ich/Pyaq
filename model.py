@@ -108,7 +108,9 @@ class DualNetwork(object):
             conv_vfc2 = tf.matmul(relu_vfc1, w_vfc2) + b_vfc2
 
             # apply tanh
-            value = tf.nn.tanh(tf.reshape(conv_vfc2, [-1]), name="value")
+            # tf.reshape(conv_vfc2, [-1])はスカラーからスカラーへの変換で、WebDNNのconverterはWebGLの時にはassertで拒否するから削除した
+            #value = tf.nn.tanh(tf.reshape(conv_vfc2, [-1]), name="value")
+            value = tf.nn.tanh(conv_vfc2, name="value")
 
         return policy, value
 
